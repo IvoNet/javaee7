@@ -5,5 +5,14 @@ In this section you will find a few examples on how to secure your RESTFull appl
 
 ## Basic Authentication
 
-* Read the instructions in the index.html file of the project.
+    The main problem with this security implementation is that credentials are propagated in a plain way from the client to the server.
+    This way, any sniffer could read the sent packages over the network.
+    Excerpt From: Rene Enríquez. “RESTful Java Web Services Security.”
+
+* Read the instructions in the index.html file of the project to get it to work.
+
+
+## Digest Authentication
+
+
 
