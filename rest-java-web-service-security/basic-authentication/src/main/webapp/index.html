@@ -1,13 +1,123 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RESTFul Security</title>
+    <title>Basic Authentication</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<h1>Chapter One</h1>
-<p>
+<h1>JavaEE7 JAX RS with BASIC Authentication</h1>
 
-</p>
+<p>A Basic Authentication example from the "RESTFul Java Web Services Security" book.</p>
+
+<p>In the book JBoss is used as the Application Server. In this example I use GlassFish 4.1</p>
+
+<p>In order to get this example to work you have to do the following:</p>
+<ul>
+    <li>Add a user with correct group to the Glasshfish config</li>
+</ul>
+
+<h2>Add a user to Glassfish</h2>
+
+<ol>
+    <li>
+        <p>Start GlassFish if you haven&rsquo;t already done so.</p>
+
+    </li>
+    <li>
+        <p>Start the Admin Console if you haven&rsquo;t already done so. </p>
+
+        <p>You can start the Admin Console by starting a web browser and specifying
+            the URL <a href="http://localhost:4848/asadmin">http://localhost:4848/asadmin</a>. If you changed the
+            default Admin port during installation, type the correct port number in place
+            of 4848.</p>
+
+    </li>
+    <li>
+        <p>To log in to the Admin Console, type the user name and password
+            of a user in the
+        <code>admin-realm</code>
+        who belongs to the
+        <code>asadmin</code>
+        group. </p>
+
+        <p>The name and password entered during installation
+            will work, as will any users added to this realm and group subsequent to installation.</p>
+
+    </li>
+    <li>
+        <p>Expand the Configuration node in the Admin Console tree.</p>
+
+    </li>
+
+    <li>
+        <p>Expand the Security node in the Admin Console tree.</p>
+
+    </li>
+
+    <li>
+        <p>Expand the Realms node, then select the
+        <code>file</code>
+        realm.</p>
+
+    </li>
+
+    <li>
+        <p>Click the Manage Users button.</p>
+
+    </li>
+
+    <li>
+        <p>Click New to add a new user to the realm.</p>
+
+    </li>
+
+    <li>
+        <p>Type the correct information into the User ID, Password, and Group(s)
+            fields. </p>
+
+
+        <p>The example applications reference a user with the following attributes:</p>
+
+        <ul>
+            <li>
+                <p>User ID =
+                <code>wsitUser</code>
+                </p>
+
+
+            </li>
+            <li>
+                <p>Group List =
+                <code>wsit</code>
+                </p>
+
+
+            </li>
+            <li>
+                <p>New Password =
+                <code>changeit</code>
+                </p>
+
+
+            </li>
+            <li>
+                Confirm New Password =
+                <code>changeit</code>
+            </li>
+        </ul>
+
+    </li>
+
+    <li>
+        <p>Click OK to add this user to the list of users in the realm.</p>
+
+    </li>
+
+    <li>
+        <p>Click Logout when you have completed this task.</p>
+
+    </li>
+</ol>
+
 </body>
 </html>
