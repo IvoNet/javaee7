@@ -16,6 +16,7 @@
     </properties>
 
 	<modules>
+        <module>archetypes</module>
         <module>jaxrs</module>
 	</modules>
 </project>
