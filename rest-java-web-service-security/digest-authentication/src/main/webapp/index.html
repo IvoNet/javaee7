@@ -22,7 +22,88 @@
 </head>
 <body>
 
-<h1>Digest Security</h1>
+<h1>JavaEE7 JAX RS with DIGEST Authentication</h1>
 
+<p>A DIGEST Authentication example from the "RESTFul Java Web Services Security" book.</p>
+
+<p>In the book JBoss is used as the Application Server. In this example I use GlassFish 4.1</p>
+
+<p>NOTE: Some commands are wordwrapped but should be 1 line on the command prompt!</p>
+
+<p>In order to get this example to work you have to do the following:</p>
+<ul>
+    <li>Create a Database / ConnectionPool / JDBC Connection</li>
+    <li>Create the tables and user</li>
+    <li>Create a Security Realm</li>
+    <li>Try it out!</li>
+</ul>
+
+<h2>Create a Database ...</h2>
+
+<p>In this example I use a derby database because it is readily available from glassfish.</p>
+
+<ul>
+    <li><code>asadmin start-domain</code></li>
+    <li><code>asadmin start-database</code></li>
+    <li>
+        <code>
+            asadmin create-jdbc-connection-pool --datasourceclassname org.apache.derby.jdbc.ClientDataSource --restype
+            javax.sql.XADataSource --property
+            portNumber=1527:password=APP:user=APP:serverName=localhost:databaseName=security:connectionAttributes=\;create\\=true
+            DerbySecurityPool
+        </code>
+    </li>
+    <li>
+        <code>
+            asadmin create-jdbc-resource --connectionpoolid DerbySecurityPool jdbc/derbySecurity
+        </code>
+    </li>
+</ul>
+
+<h2>Create the tables and add users</h2>
+
+<p>This you can do with a lot of tools. Mostly I do this with my IDE.</p>
+
+<p>Just create a database connection:</p>
+<ul>
+    <li>User=<code>APP</code></li>
+    <li>Password=<code>APP</code></li>
+    <li>connection url<code>jdbc:derby://localhost:1527/security;create=true</code></li>
+    <li>Execute the <code>security.sql</code> from the resources folder</li>
+    <li>Execute the <code>insertUsers.sql</code> from the resources folder</li>
+</ul>
+
+
+<h2>Create a Security Realm</h2>
+
+<ul>
+    <li>
+        <code>
+            asadmin start-domain
+        </code>
+    </li>
+    <li>
+        <code>
+            asadmin create-auth-realm --classname com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm --property
+            jaas-context=jdbcDigestRealm:datasource-jndi=jdbc/derbySecurity:user-table=USERS:user-name-column=USER_ID:password-column=PASSWORD:group-table=GROUPS_USERS:group-name-column=GROUP_ID:group-table-user-name-column=USER_ID:digestrealm-password-enc-algorithm=SHA-256
+            derbySecurityRealm
+        </code>
+    </li>
+    <li>
+        <code>
+            asadmin stop-domain
+        </code>
+    </li>
+</ul>
+
+<h2>Try it Out</h2>
+
+<p>Try the following link and it should work with user <code>foo</code> and password <code>b37e50cedcd3e3f1ff64f4afc0422084ae694253cf399326868e07a35f4a45fb</code></p>
+
+<ul>
+    <li><a href="services/persons">GET all persons.</a></li>
+</ul>
+
+<p>Try the POST from SOAP UI or something</p>
 </body>
 </html>
