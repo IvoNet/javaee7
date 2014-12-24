@@ -20,7 +20,7 @@
 
     <!-- Roles -->
     <security-role>
-        <description>Any rol</description>
+        <description>Any role˚</description>
         <role-name>*</role-name>
     </security-role>
 

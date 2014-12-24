@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package nl.ivonet.config;/**
- *
- * @author Ivo Woltring
- */
+package nl.ivonet.config;
 
 import nl.ivonet.services.PersonService;
 
