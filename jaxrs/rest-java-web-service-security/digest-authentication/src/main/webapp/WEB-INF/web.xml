@@ -14,32 +14,56 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
 
     <!-- Roles -->
     <security-role>
-        <description>Any role˚</description>
+        <description>Admin Role</description>
+        <role-name>ADMIN</role-name>
+    </security-role>
+
+    <security-role>
+        <description>Any Role</description>
         <role-name>*</role-name>
     </security-role>
 
+    <security-role>
+        <description>USER Role</description>
+        <role-name>USER</role-name>
+    </security-role>
+
     <!-- Resource / Role Mapping -->
+    <!--GETs can be done by users and admins-->
     <security-constraint>
         <display-name>Area secured</display-name>
         <web-resource-collection>
             <web-resource-name>protected_resources</web-resource-name>
             <url-pattern>/services/*</url-pattern>
             <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>*</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--POSTs can be done by admins only.-->
+    <security-constraint>
+        <display-name>Area secured</display-name>
+        <web-resource-collection>
+            <web-resource-name>protected_resources</web-resource-name>
+            <url-pattern>/services/*</url-pattern>
             <http-method>POST</http-method>
         </web-resource-collection>
         <auth-constraint>
-            <description>User with any role</description>
-            <role-name>*</role-name>
+            <role-name>ADMIN</role-name>
         </auth-constraint>
     </security-constraint>
 
     <login-config>
-        <auth-method>BASIC</auth-method>
+        <auth-method>DIGEST</auth-method>
+        <realm-name>derbySecurityRealm</realm-name>
     </login-config>
 </web-app>
