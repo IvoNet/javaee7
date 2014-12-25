@@ -18,6 +18,7 @@
     <modules>
         <module>basic-authentication</module>
         <module>digest-authentication</module>
+        <module>client-certificate-authentication</module>
     </modules>
 
 </project>
