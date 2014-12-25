@@ -12,3 +12,6 @@ In this repository I do some Java EE 7 explorations.
     * Digest Authentication
 
 
+### Archetypes
+
+* javaee7-essentials-archetype
