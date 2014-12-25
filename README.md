@@ -10,7 +10,7 @@ In this repository I do some Java EE 7 explorations.
 * RESTFull Java Web Service Security
     * Basic Authentication
     * Digest Authentication
-
+    * Client Certificate Authentication
 
 ### Archetypes
 
