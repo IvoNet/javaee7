@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project xmlns:con="http://eviware.com/soapui/config" activeEnvironment="Default" name="BASIC Authentication"
-                    soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" resourceRoot="">
+                    soapui-version="5.0.0-m-SNAPSHOT" abortOnError="false" runType="SEQUENTIAL" resourceRoot="">
     <con:settings/>
     <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RestService"
                    wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest">

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project xmlns:con="http://eviware.com/soapui/config" activeEnvironment="Default"
-                    name="DIGEST Authentication" resourceRoot="" soapui-version="5.0.0-m-SNAPSHOT">
+                    name="DIGEST Authentication" resourceRoot="" soapui-version="5.0.0-m-SNAPSHOT" abortOnError="false"
+                    runType="SEQUENTIAL">
     <con:settings/>
     <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RestService"
                    wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest">
@@ -61,6 +62,30 @@
                     <con:mediaType>application/xml</con:mediaType>
                     <con:params/>
                     <con:element>person</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>201</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>201</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>201</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>201</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
                 </con:representation>
                 <con:representation type="RESPONSE">
                     <con:mediaType xsi:nil="true"/>
