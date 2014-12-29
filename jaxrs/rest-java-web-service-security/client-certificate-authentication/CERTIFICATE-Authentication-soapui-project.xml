@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project xmlns:con="http://eviware.com/soapui/config" activeEnvironment="Default"
-                    name="DIGEST Authentication" resourceRoot="" soapui-version="5.0.0-m-SNAPSHOT" abortOnError="false"
-                    runType="SEQUENTIAL">
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config" activeEnvironment="Default" name="CERT Authentication"
+                    resourceRoot="" soapui-version="5.0.0-m-SNAPSHOT" abortOnError="false" runType="SEQUENTIAL">
     <con:settings/>
     <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RestService"
                    wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest">
         <con:settings/>
+
         <con:definitionCache type="TEXT" rootPart=""/>
         <con:endpoints>
-            <con:endpoint>http://localhost:8080</con:endpoint>
+            <con:endpoint>https://localhost:8181</con:endpoint>
         </con:endpoints>
-        <con:resource name="" path="/digest/services/persons">
+        <con:resource name="" path="/cert/services/persons">
             <con:settings/>
             <con:parameters/>
             <con:method name="" method="GET">
@@ -28,21 +28,27 @@
                     <con:params/>
                     <con:element>people</con:element>
                 </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>0</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
                 <con:request name="Request 1" mediaType="application/json">
                     <con:settings>
                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/>
                         </con:setting>
                     </con:settings>
-                    <con:endpoint>http://localhost:8080</con:endpoint>
+                    <con:endpoint>https://localhost:8181</con:endpoint>
                     <con:request/>
                     <con:originalUri>http://localhost/digest/services/persons</con:originalUri>
                     <con:credentials>
                         <con:username>foo</con:username>
                         <con:password>b37e50cedcd3e3f1ff64f4afc0422084ae694253cf399326868e07a35f4a45fb</con:password>
                         <con:domain/>
-                        <con:selectedAuthProfile>SPNEGO/Kerberos</con:selectedAuthProfile>
+                        <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
                         <con:addedBasicAuthenticationTypes>SPNEGO/Kerberos</con:addedBasicAuthenticationTypes>
-                        <con:authType>SPNEGO/Kerberos</con:authType>
+                        <con:authType>No Authorization</con:authType>
                     </con:credentials>
                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                     <con:jmsPropertyConfig/>
@@ -165,12 +171,30 @@
                     <con:params/>
                     <con:element>data</con:element>
                 </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>0</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>0</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>0</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
                 <con:request name="Request 1" mediaType="application/xml" postQueryString="false">
                     <con:settings>
                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/>
                         </con:setting>
                     </con:settings>
-                    <con:endpoint>http://localhost:8080</con:endpoint>
+                    <con:endpoint>https://localhost:8181</con:endpoint>
                     <con:request><![CDATA[<person>
    <name>John</name>
    <lastname>Doe</lastname>
@@ -179,9 +203,9 @@
                     <con:credentials>
                         <con:username>admin</con:username>
                         <con:password>b37e50cedcd3e3f1ff64f4afc0422084ae694253cf399326868e07a35f4a45fb</con:password>
-                        <con:selectedAuthProfile>SPNEGO/Kerberos</con:selectedAuthProfile>
+                        <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
                         <con:addedBasicAuthenticationTypes>SPNEGO/Kerberos</con:addedBasicAuthenticationTypes>
-                        <con:authType>SPNEGO/Kerberos</con:authType>
+                        <con:authType>No Authorization</con:authType>
                     </con:credentials>
                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                     <con:jmsPropertyConfig/>
@@ -193,4 +217,5 @@
     <con:properties/>
     <con:wssContainer/>
     <con:oAuth2ProfileContainer/>
+    <con:sensitiveInformation/>
 </con:soapui-project>
