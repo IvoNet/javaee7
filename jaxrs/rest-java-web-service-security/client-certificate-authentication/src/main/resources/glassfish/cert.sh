@@ -71,14 +71,14 @@ echo "Creating a certificate"
 #keytool -genkeypair -alias ivonet -keyalg RSA -keystore keystore.jks -keysize 4096 -dname "cn=localhost, ou=engineering, o=ivonet, c=NL" -keypass changeit -storepass changeit
 keytool -genkey -alias ivonet -keyalg RSA -keystore keystore.jks -keysize 4096 -dname "cn=localhost, ou=engineering, o=ivonet, c=NL" -keypass changeit -storepass changeit
 keytool -export -alias ivonet -file server.cer -keystore keystore.jks -keypass changeit -storepass changeit
-keytool -import -v -trustcacerts -alias ivonet -file server.cer -keystore cacerts.jks -keypass changeit -storepass changeit
+keytool -import -v -trustcacerts -alias ivonet -file server.cer -keystore cacerts.jks -keypass changeit -storepass changeit -noprompt
 echo "Created this certificate and added it to keystore.jks"
 keytool -list -v -alias ivonet -keystore keystore.jks  -keypass changeit -storepass changeit
 
 #keytool -export  -keystore keystore.jks -keypass changeit -storepass changeit -alias ivonet -file ivonet.cer
 #keytool -printcert  -file ivonet.cer  -v
 sudo keytool -delete -noprompt -alias ivonet -keystore /Library/Java/Home/lib/security/cacerts -keypass changeit -storepass changeit
-sudo keytool -trustcacerts -import -alias ivonet -file server.cer -keystore /Library/Java/Home/lib/security/cacerts
+sudo keytool -trustcacerts -import -alias ivonet -file server.cer -keystore /Library/Java/Home/lib/security/cacerts -noprompt
 
 
 RUNNING=`asadmin list-domains|grep $DOMAIN`
@@ -116,7 +116,6 @@ gfadmin create-ssl --type http-listener --certname ivonet --ssl3enabled=false iv
 
 # Restart the server
 gfadmin restart-domain $DOMAIN
-gfadmin stop-domain $DOMAIN
 
 
 clear
