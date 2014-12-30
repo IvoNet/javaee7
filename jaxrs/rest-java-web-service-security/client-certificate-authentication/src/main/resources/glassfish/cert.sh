@@ -129,14 +129,14 @@ gfadmin create-ssl --type http-listener --certname $CERTIFICATE_ALIAS --ssl3enab
 gfadmin restart-domain $DOMAIN
 
 
-clear
-echo "Now you have a working playground domain pointing to a keystore and truststore you can play with"
-echo "Open the browser at https://localhost:7272 and see what happends (look at the certificate)"
-
-
 #cleanup stuff
 rm -f ./passwords
 
 
-
-
+clear
+echo "-------------------------------------------------------------------------------------------------"
+echo "finished."
+echo "-------------------------------------------------------------------------------------------------"
+echo "Now you have a working playground domain pointing to a keystore and truststore you can play with"
+echo "Open the browser at https://localhost:7272 and see what happends (look at the certificate)"
+echo "-------------------------------------------------------------------------------------------------"
