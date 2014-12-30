@@ -17,6 +17,16 @@ DOMAIN="ivonet"
 #this blog: http://www.ivonet.it/Linux/Glassfish41
 USER="admin"
 
+#The owner for the certificate
+OWNER="IvoNet"
+
+# The alias used for the certificate import (use no spaces!)
+CERTIFICATE_ALIAS="ivonet"
+
+
+#The word used of creating the secure http-listener and other items needed in glassfish.
+#It is just an identifier and may not contain spaces
+SECURE_HTTP_LISTENER_PROTOCOL="ivonet"
 
 #######################################################################
 # Application section - Edit at your own discretion
@@ -68,17 +78,17 @@ cp $GLASSFISH_HOME/glassfish/domains/$DOMAIN/config/keystore.jks ./keystore.jks
 cp $GLASSFISH_HOME/glassfish/domains/$DOMAIN/config/cacerts.jks ./cacerts.jks
 
 echo "Creating a certificate"
-#keytool -genkeypair -alias ivonet -keyalg RSA -keystore keystore.jks -keysize 4096 -dname "cn=localhost, ou=engineering, o=ivonet, c=NL" -keypass changeit -storepass changeit
-keytool -genkey -alias ivonet -keyalg RSA -keystore keystore.jks -keysize 4096 -dname "cn=localhost, ou=engineering, o=ivonet, c=NL" -keypass changeit -storepass changeit
-keytool -export -alias ivonet -file server.cer -keystore keystore.jks -keypass changeit -storepass changeit
-keytool -import -v -trustcacerts -alias ivonet -file server.cer -keystore cacerts.jks -keypass changeit -storepass changeit -noprompt
+#keytool -genkeypair -alias ivonet -keyalg RSA -keystore keystore.jks -keysize 4096 -dname "cn=localhost, ou=engineering, o=$OWNER, c=NL" -keypass changeit -storepass changeit
+keytool -genkey -alias $CERTIFICATE_ALIAS -keyalg RSA -keystore keystore.jks -keysize 4096 -dname "cn=localhost, ou=engineering, o=$OWNER, c=NL" -keypass changeit -storepass changeit
+keytool -export -alias $CERTIFICATE_ALIAS -file server.cer -keystore keystore.jks -keypass changeit -storepass changeit
+keytool -import -v -trustcacerts -alias $CERTIFICATE_ALIAS -file server.cer -keystore cacerts.jks -keypass changeit -storepass changeit -noprompt
 echo "Created this certificate and added it to keystore.jks"
-keytool -list -v -alias ivonet -keystore keystore.jks  -keypass changeit -storepass changeit
+keytool -list -v -alias $CERTIFICATE_ALIAS -keystore keystore.jks  -keypass changeit -storepass changeit
 
-#keytool -export  -keystore keystore.jks -keypass changeit -storepass changeit -alias ivonet -file ivonet.cer
-#keytool -printcert  -file ivonet.cer  -v
-sudo keytool -delete -noprompt -alias ivonet -keystore /Library/Java/Home/lib/security/cacerts -keypass changeit -storepass changeit
-sudo keytool -trustcacerts -import -alias ivonet -file server.cer -keystore /Library/Java/Home/lib/security/cacerts -noprompt
+#keytool -export  -keystore keystore.jks -keypass changeit -storepass changeit -alias #CERTIFICATE_ALIAS -file client.cer
+#keytool -printcert  -file client.cer  -v
+sudo keytool -delete -noprompt -alias $CERTIFICATE_ALIAS -keystore /Library/Java/Home/lib/security/cacerts -keypass changeit -storepass changeit
+sudo keytool -trustcacerts -import -alias $CERTIFICATE_ALIAS -file server.cer -keystore /Library/Java/Home/lib/security/cacerts -noprompt
 
 
 RUNNING=`asadmin list-domains|grep $DOMAIN`
@@ -89,6 +99,7 @@ then
 fi
 
 #Switch a couple of jvm options to point the keystore and truststore to the copied files
+#Start using the copied stores. I don't want to mess with the origionals.
 gfadmin delete-jvm-options -Djavax.net.ssl.keyStore=\$\{com.sun.aas.instanceRoot\}/config/keystore.jks
 gfadmin delete-jvm-options -Djavax.net.ssl.trustStore=\$\{com.sun.aas.instanceRoot\}/config/cacerts.jks
 
@@ -108,11 +119,11 @@ gfadmin restart-domain $DOMAIN
 #gfadmin delete-protocol ivonet-protocol
 #gfadmin delete-http ivonet-protocol
 
-gfadmin create-protocol --securityenabled=true ivonet-protocol
-gfadmin create-http --timeout-seconds 60 --default-virtual-server server ivonet-protocol
-gfadmin create-threadpool --maxthreadpoolsize 100 --minthreadpoolsize 20 --idletimeout 2 ivonet-threadpool
-gfadmin create-network-listener --listenerport 7272 --protocol ivonet-protocol --enabled=true --threadpool ivonet-threadpool ivonet-listener
-gfadmin create-ssl --type http-listener --certname ivonet --ssl3enabled=false ivonet-listener
+gfadmin create-protocol --securityenabled=true $SECURE_HTTP_LISTENER_PROTOCOL-protocol
+gfadmin create-http --timeout-seconds 60 --default-virtual-server server $SECURE_HTTP_LISTENER_PROTOCOL-protocol
+gfadmin create-threadpool --maxthreadpoolsize 100 --minthreadpoolsize 20 --idletimeout 2 $SECURE_HTTP_LISTENER_PROTOCOL-threadpool
+gfadmin create-network-listener --listenerport 7272 --protocol $SECURE_HTTP_LISTENER_PROTOCOL-protocol --enabled=true --threadpool $SECURE_HTTP_LISTENER_PROTOCOL-threadpool $SECURE_HTTP_LISTENER_PROTOCOL-listener
+gfadmin create-ssl --type http-listener --certname $CERTIFICATE_ALIAS --ssl3enabled=false $SECURE_HTTP_LISTENER_PROTOCOL-listener
 
 # Restart the server
 gfadmin restart-domain $DOMAIN
