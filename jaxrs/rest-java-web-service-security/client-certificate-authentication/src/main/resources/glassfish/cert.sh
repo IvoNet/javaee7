@@ -2,7 +2,11 @@
 clear
 #######################################################################
 # Create a domain in glassfish and assign self signed certificates to
-# it
+# it.
+#
+# RUN THIS SCRIPT AT YOUR OWN RISK! I WROTE IT FOR A MAC WITH GLASSFISH
+# INSTALLED THROUGH HOMEBREW. PLEASE CHECK EVERYTHING FIRST BEFORE
+# RUNNING IT. THE KNWOLEDGE WITHIN MIGHT BE USEFUL THOUGH.
 #
 # By IvoNet.nl
 #######################################################################
