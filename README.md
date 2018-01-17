@@ -14,4 +14,4 @@ In this repository I do some Java EE 7 explorations.
 
 ### Archetypes
 
-* javaee7-essentials-archetype
+* javaee7-essentials-archetype: A very simple archetype containing everything needed to get cracking immediatly.
